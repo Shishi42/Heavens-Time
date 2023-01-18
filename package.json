@@ -1,0 +1,17 @@
+{
+  "name": "holy_ground",
+  "version": "1.0.0",
+  "description": "Community Management Discord BOT",
+  "main": "holy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "js",
+    "administration"
+  ],
+  "author": "Shishi",
+  "license": "ISC"
+}
