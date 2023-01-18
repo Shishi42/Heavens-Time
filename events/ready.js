@@ -1,12 +1,29 @@
-const Discord = require('discord.js')
-const sqlite3 = require("sqlite3")
 const slashcommands_loader = require("../loaders/slashcommands_loader")
+const Sequelize = require("sequelize")
 
 module.exports = async bot => {
 
   await slashcommands_loader(bot)
 
-  bot.db = new sqlite3.Database("majins.db")
+  bot.db = new Sequelize({
+    dialect: 'sqlite',
+    storage: './majins.db'
+  })
+
+  bot.Bans = bot.db.define('ban', {
+  	id: {
+  		type: Sequelize.STRING,
+      allowNull: false,
+      primaryKey: true,
+  	},
+  	reason: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+    }
+  })
+
+  bot.Bans.sync()
+  console.log(`Database online`)
 
   console.log(`Connecté en tant que ${bot.user.tag}!`)
 
