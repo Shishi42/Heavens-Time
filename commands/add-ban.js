@@ -4,7 +4,7 @@ module.exports = {
 
   name: "add-ban",
   description: "Add someone to the ban-list",
-  permission: null,
+  permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
   category: "Ban",
   options: [
