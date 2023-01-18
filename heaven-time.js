@@ -17,7 +17,7 @@ events_loader(bot)
 
 bot.login(config.token)
 
-let auto_update = new cron.CronJob('00 * * * * *', () => {
+let auto_update = new cron.CronJob('00 00 * * * *', () => {
 
   bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send("Launching Auto-Update on "+bot.guilds.cache.size+" servers.")
 
