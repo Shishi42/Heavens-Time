@@ -62,7 +62,7 @@ module.exports = {
         message.editReply({embeds: [embed], components: [row]})
 
         collector.on('collect', async i => {
-          await i.deferReply()
+          await i.deferUpdate()
           if (i.customId === 'confirm_ban') {
             if(await bot.Bans.findOne({where: {id: user}}) == null){
               await bot.Bans.create({

@@ -25,8 +25,8 @@ module.exports = {
     for(ban of bans){
       let member = guild.members.cache.get(ban.dataValues.id)
       if(member?.bannable || member == undefined){
-        guild.bans.create(ban.dataValues.id, {reason: `[HT] Auto-ban : ${ban.dataValues.reason}`})
-        count++
+        let res = await guild.bans.create(ban.dataValues.id, {reason: `[HT] Auto-ban : ${ban.dataValues.reason}`})
+        if(!(res === ban.dataValues.id)) count++
       }
     }
 
@@ -43,6 +43,8 @@ module.exports = {
       bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
       return await message.editReply("Done. ✔️")
 
+    } else {
+      return count
     }
   }
 }
