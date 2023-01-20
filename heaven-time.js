@@ -19,7 +19,7 @@ bot.login(config.token)
 
 let auto_update = new cron.CronJob('00 00 * * * *', () => {
 
-  bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send("Launching Auto-Update on "+bot.guilds.cache.size+" servers.")
+  bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel_auto).send("Launching Auto-Update on "+bot.guilds.cache.size+" servers.")
 
   let command = require(`./commands/update-ban.js`)
   for(guild of bot.guilds.cache){
