@@ -10,6 +10,7 @@ bot.commands = new Discord.Collection()
 bot.color = config.bot_color
 bot.log_guild = config.log_guild
 bot.log_channel = config.log_channel
+bot.log_channel_auto = config.log_channel_auto
 bot.mods = config.bot_owners
 
 commands_loader(bot)
