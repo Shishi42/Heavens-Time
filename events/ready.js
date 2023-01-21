@@ -30,9 +30,7 @@ module.exports = async bot => {
 
   bot.user.setPresence({activities: [{ name: "Holy Ground", type: 2 }], status: 'online'})
   
-  console.log(bot.guilds.cache)
   bot.guilds.cache.forEach(guild => {
-    console.log(guild)
     embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
     .setTitle(`The bot has joined : ${guild.name}.`)
