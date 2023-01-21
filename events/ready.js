@@ -29,8 +29,6 @@ module.exports = async bot => {
 
   bot.user.setPresence({activities: [{ name: "Holy Ground", type: 2 }], status: 'online'})
   
-  temp = []
-
   for(guild in bot.guilds.cache){
     embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
@@ -49,7 +47,6 @@ module.exports = async bot => {
     )
     .setTimestamp()
     .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
-    temp.push(embed)
+    bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: embed})
   }
-  bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: temp})
 }
