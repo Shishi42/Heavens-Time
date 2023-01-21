@@ -1,5 +1,6 @@
 const slashcommands_loader = require("../loaders/slashcommands_loader")
 const Sequelize = require("sequelize")
+const Discord = require('discord.js')
 
 module.exports = async bot => {
 
