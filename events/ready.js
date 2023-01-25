@@ -28,4 +28,9 @@ module.exports = async bot => {
   console.log(`Connecté en tant que ${bot.user.tag}!`)
 
   bot.user.setPresence({activities: [{ name: "Holy Ground", type: 2 }], status: 'online'})
+
+  bot.mods = []
+  for(jury of bot.guilds.cache.get(bot.main_guild).roles.cache.get(bot.jury_role).members){
+    bot.mods.push(jury[0])
+  }
 }
