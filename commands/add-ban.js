@@ -50,47 +50,56 @@ module.exports = {
   			.addComponents(
   				new Discord.ButtonBuilder()
             .setCustomId("confirm_ban")
-            .setLabel("Confirm")
+            .setLabel("Vote")
             .setStyle(Discord.ButtonStyle.Success),
-          new Discord.ButtonBuilder()
-            .setCustomId("cancel_ban")
-            .setLabel("Cancel")
-            .setStyle(Discord.ButtonStyle.Danger)
+        //   new Discord.ButtonBuilder()
+        //     .setCustomId("cancel_ban")
+        //     .setLabel("Cancel")
+        //     .setStyle(Discord.ButtonStyle.Danger)
   			)
         const collector = message.channel.createMessageComponentCollector({ time: 15000 })
 
         message.editReply({embeds: [embed], components: [row]})
 
+        vote_count = 0
+        already_vote = []
+
         collector.on('collect', async i => {
           await i.deferUpdate()
           if (i.customId === 'confirm_ban') {
-            if(await bot.Bans.findOne({where: {id: user}}) == null){
-              await bot.Bans.create({
-                id: discord_user.id,
-                reason: reason,
-              })
+            if(!already_vote.includes(i.member.id)){
+              vote_count += 1
+              already_vote.push(i.member.id)
             }
-
-            let count = 0
-            for(guild of bot.guilds.cache){
-              let member = guild[1].members.cache.get(discord_user.id)
-              if(member?.bannable || member == undefined){
-                guild[1].bans.create(discord_user.id, {reason: `[HT] Auto-ban : ${reason}`})
-                count++
+            if(vote_count >= Math.floor(bot.mods.length/2)){
+              if(await bot.Bans.findOne({where: {id: user}}) == null){
+                await bot.Bans.create({
+                  id: discord_user.id,
+                  reason: reason,
+                })
               }
-            }
 
-            let log_embed = new Discord.EmbedBuilder()
-            .setColor(bot.color)
-            .setTitle(`${discord_user.tag} has been banned.`)
-            .setThumbnail(discord_user.displayAvatarURL({dynamic: true}))
-            .setDescription(`For the reason : \`${reason}\`\n Banned by ${message.member.user.tag}`)
-            .addFields({name: "Number of server who banned it", value: String(count)})
-            .setTimestamp()
-            .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
-            bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+              let count = 0
+              for(guild of bot.guilds.cache){
+                let member = guild[1].members.cache.get(discord_user.id)
+                if(member?.bannable || member == undefined){
+                  guild[1].bans.create(discord_user.id, {reason: `[HT] Auto-ban : ${reason}`})
+                  count++
+                }
+              }
 
-            return await i.editReply(`User has been banned on ${bot.guilds.cache.size} servers.`)
+              let log_embed = new Discord.EmbedBuilder()
+              .setColor(bot.color)
+              .setTitle(`${discord_user.tag} has been banned.`)
+              .setThumbnail(discord_user.displayAvatarURL({dynamic: true}))
+              .setDescription(`For the reason : \`${reason}\`\n Banned by ${message.member.user.tag}`)
+              .addFields({name: "Number of server who banned it", value: String(count)})
+              .setTimestamp()
+              .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
+              bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+
+              return await i.editReply(`User has been banned on ${bot.guilds.cache.size} servers.`)
+            } else i.editReply(`Waiting for more votes (${vote_count}/${Math.floor(bot.mods.length/2)} to go)`)
           } else if (i.customId === 'cancel_ban') {
             return await i.editReply("Ban canceled.")
           }
