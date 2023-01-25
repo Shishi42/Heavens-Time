@@ -88,7 +88,7 @@ module.exports = {
             .addFields({name: "Number of server who banned it", value: String(count)})
             .setTimestamp()
             .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
-            bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+            bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
 
             return await i.editReply(`User has been banned on ${bot.guilds.cache.size} servers.`)
           } else if (i.customId === 'cancel_ban') {

@@ -40,7 +40,7 @@ module.exports = {
       .setTimestamp()
       .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
 
-      bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+      bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
       return await message.editReply("Done. ✔️")
 
     } else {

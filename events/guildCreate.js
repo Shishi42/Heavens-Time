@@ -26,5 +26,5 @@ module.exports = async (bot, guild) => {
   let count = await command.run(bot, null, guild)
 
   log_embed.addFields({name: "Number of ban added on the server", value: String(count)})
-  bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+  bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
 }

@@ -17,5 +17,5 @@ module.exports = async (bot, guild) => {
   .setTimestamp()
   .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
 
-  return bot.guilds.cache.get(bot.log_guild).channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
+  return bot.channels.cache.get(bot.log_channel).send({embeds: [log_embed]})
 }

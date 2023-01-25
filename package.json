@@ -1,6 +1,6 @@
 {
   "name": "heavens-time",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Community Management Discord BOT",
   "main": "heaven-time.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "administration"
   ],
   "author": "Shishi",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cron": "^2.2.0",
     "discord.js": "^14.7.1",
