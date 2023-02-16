@@ -26,6 +26,11 @@ module.exports = {
       let member = guild.members.cache.get(ban.dataValues.id)
       if(member?.bannable || member == undefined){
         let res = await guild.bans.create(ban.dataValues.id, {reason: `[HT] Auto-ban : ${ban.dataValues.reason}`})
+          .catch(error => {
+          	if (error.code != 50013) {
+          		console.error('Error raised while trying to ban:', error)
+            }
+          })
         if(!(res === ban.dataValues.id)) count++
       }
     }
